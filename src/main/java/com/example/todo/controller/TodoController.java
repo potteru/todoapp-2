@@ -1,7 +1,9 @@
+// Write your code here
 package com.example.todo.controller;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +17,8 @@ import com.example.todo.service.TodoH2Service;
 
 @RestController
 public class TodoController {
-
-    TodoH2Service todoService = new TodoH2Service();
+    @Autowired
+    TodoH2Service todoService;
 
     @GetMapping("/todos")
     public ArrayList<Todo> getTodos() {
@@ -39,8 +41,9 @@ public class TodoController {
     }
 
     @DeleteMapping("/todos/{id}")
-    public void deleteTodo(@PathVariable int id) {
+    public ArrayList<Todo> deleteTodo(@PathVariable int id) {
         todoService.deleteTodo(id);
+        return todoService.getTodoList();
     }
 
 }

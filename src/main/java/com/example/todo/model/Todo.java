@@ -1,12 +1,13 @@
+// Write your code here
 package com.example.todo.model;
 
 public class Todo {
-	
+
 	private int id;
 	private String todo;
 	private String status;
 	private String priority;
-	
+
 	public Todo(int id, String todo, String status, String priority) {
 		super();
 		this.id = id;
@@ -46,7 +47,5 @@ public class Todo {
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
-	
-	
-	
+
 }

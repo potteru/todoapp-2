@@ -20,7 +20,7 @@ public class TodoH2Service implements TodoRepository {
 
     @Override
     public ArrayList<Todo> getTodoList() {
-        Collection<Todo> todoCollection = db.query("select * from TODOLIST", new TodoRowMapper());
+        Collection<Todo> todoCollection = db.query("select * from todolist", new TodoRowMapper());
         ArrayList<Todo> todos = new ArrayList<>(todoCollection);
 
         return todos;
@@ -29,7 +29,7 @@ public class TodoH2Service implements TodoRepository {
     @Override
     public Todo getTodoById(int id) {
         try {
-            Todo todo = db.queryForObject("select * from TODOLIST where id=?", new TodoRowMapper(), id);
+            Todo todo = db.queryForObject("select * from todolist where id=?", new TodoRowMapper(), id);
             return todo;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -48,15 +48,14 @@ public class TodoH2Service implements TodoRepository {
     public Todo updateTodo(int id, Todo todo) {
 
         if (todo.getTodo() != null) {
-            db.update("update todoList set todo =? where id = ?", todo.getTodo(), id);
+            db.update("update todolist set todo =? where id = ?", todo.getTodo(), id);
         }
 
-        if (todo.getTodo() != null) {
-            db.update("update todoList set priority =? where id = ?", todo.getPriority(), id);
+        if (todo.getStatus() != null) {
+            db.update("update todolist set status = ? where id = ?", todo.getStatus(), id);
         }
-
         if (todo.getPriority() != null) {
-            db.update("update todoList set status = ? where id = ?", todo.getStatus(), id);
+            db.update("update todolist set priority =? where id = ?", todo.getPriority(), id);
         }
 
         return getTodoById(id);
